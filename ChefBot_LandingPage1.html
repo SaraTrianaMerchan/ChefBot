@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChefBot – AI Assistant for Inclusive Dining</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-gray-800">👨‍🍳 ChefBot</h1>
+            <p class="text-lg text-gray-600">Your AI Assistant for Safe & Inclusive Dining</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Introduction & Problem -->
+        <section class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Dine with Confidence.</h2>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto">ChefBot helps you find safe and delicious dishes that match your dietary needs, so you can enjoy your meal without worry. No more stress for you or the restaurant staff.</p>
+        </section>
+
+        <!-- The ChefBot Form -->
+        <section id="chefbot-form" class="bg-white p-8 rounded-lg shadow-xl max-w-2xl mx-auto">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-6">Find Your Perfect Meal</h3>
+            
+            <form>
+                <!-- Language Selection -->
+                <div class="mb-6">
+                    <label for="language" class="block text-lg font-medium text-gray-700 mb-2">Language</label>
+                    <select id="language" name="language" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <option>English</option>
+                        <option>Español</option>
+                        <option>Français</option>
+                        <option>Deutsch</option>
+                    </select>
+                </div>
+
+                <!-- Allergy Selection -->
+                <div class="mb-6">
+                    <label class="block text-lg font-medium text-gray-700 mb-2">Select Your Allergies or Intolerances</label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="gluten" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Gluten-Free</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="lactose" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Lactose-Free</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="nuts" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Nut Allergy</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="vegetarian" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Vegetarian</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="vegan" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Vegan</span>
+                        </label>
+                         <label class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg hover:bg-gray-200 cursor-pointer">
+                            <input type="checkbox" name="allergy" value="fish" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-gray-700 font-medium">Fish</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300">
+                        Get Recommendations
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-600">
+            <p>Built with ❤️ by Sara Triana Merchan.</p>
+        </div>
+    </footer>
+<script src="app.js"></script>
+</body>
+</html>
