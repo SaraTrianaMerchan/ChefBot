@@ -1,4 +1,4 @@
-# 👨‍🍳 ChefBot – AI Assistant for Inclusive Dining
+# 👨‍🍳 ChefBot – AI Assistant for Inclusive Diningg.
 
 ChefBot is an AI-powered virtual assistant designed to support restaurants and diners by offering personalized, safe, and inclusive food recommendations—especially for individuals with allergies, intolerances, and dietary restrictions.
 
