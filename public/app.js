@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // 3. Send the data to your secure backend endpoint (this is a placeholder URL)
             // We will build this backend in the next step.
-            const response = await fetch('/api/get-recommendations', {
+            const response = await fetch('/api/get_recommendations.js', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
