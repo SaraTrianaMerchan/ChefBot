@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChefBot - Arquitectura Real del Sistema</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        .diagram-section {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .architecture-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .tech-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 5px 5px 0 0;
+        }
+        .tech-badge.openai {
+            background: #10a37f;
+        }
+        .tech-badge.vercel {
+            background: #000;
+        }
+        .tech-badge.js {
+            background: #f7df1e;
+            color: #000;
+        }
+        .tech-badge.html {
+            background: #e34c26;
+        }
+        .flow-section {
+            background: #edf2f7;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .flow-section h3 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .step {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .highlight-box {
+            background: #fff5f5;
+            border-left: 5px solid #fc8181;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .highlight-box h3 {
+            color: #c53030;
+            margin-top: 0;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .pros {
+            background: #f0fff4;
+            border-left: 5px solid #48bb78;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .cons {
+            background: #fffaf0;
+            border-left: 5px solid #ed8936;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #718096;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👨‍🍳 ChefBot</h1>
+        <p class="subtitle">Arquitectura Real - Stack Simplificado (OpenAI + JavaScript + Vercel)</p>
+        
+        <div class="diagram-section">
+            <div class="mermaid">
+graph TB
+    subgraph "👤 CLIENTE"
+        A[Usuario/Comensal]
+        B[Navegador Web]
+    end
+    
+    subgraph "🌐 FRONTEND - Vercel"
+        C[Landing Page<br/>HTML + CSS + JavaScript]
+        D[Interfaz Chat<br/>Vanilla JS]
+        E[QR Code Generator]
+    end
+    
+    subgraph "🔌 BACKEND"
+        F[OpenAI API<br/>GPT-4 / GPT-3.5]
+        G[Prompt Engineering<br/>System + User Messages]
+    end
+    
+    subgraph "💾 DATOS"
+        H[Matriz de Alérgenos<br/>JSON Local/Hardcoded]
+        I[Menú del Restaurante<br/>JSON Static]
+    end
+    
+    A -->|Escanea QR o visita URL| B
+    B -->|Carga| C
+    C -->|Inicia chat| D
+    D -->|Envía query| G
+    G -->|API Call| F
+    G -->|Lee contexto| H
+    G -->|Lee menú| I
+    F -->|Genera respuesta| G
+    G -->|Retorna JSON| D
+    D -->|Muestra recomendaciones| B
+    B -->|Ve resultados| A
+
+    style F fill:#10a37f,stroke:#333,stroke-width:3px,color:#fff
+    style C fill:#000,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#f7df1e,stroke:#333,stroke-width:2px,color:#000
+    style A fill:#ffd93d,stroke:#333,stroke-width:3px
+    style H fill:#ff6b9d,stroke:#333,stroke-width:2px
+            </div>
+        </div>
+
+        <h2 style="color: #2d3748; margin-top: 50px;">🏗️ Stack Tecnológico Real</h2>
+        
+        <div class="architecture-cards">
+            <div class="card">
+                <h3>🌐 Frontend</h3>
+                <p><strong>HTML5 + CSS3:</strong> Estructura y estilos de la landing page. Sin frameworks, código limpio y rápido.</p>
+                <p><strong>JavaScript Vanilla:</strong> Lógica del chat, llamadas a la API, manejo del DOM.</p>
+                <div style="margin-top: 15px;">
+                    <span class="tech-badge html">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge js">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🤖 Motor de IA</h3>
+                <p><strong>OpenAI API:</strong> GPT-4 o GPT-3.5-turbo para procesamiento de lenguaje natural y recomendaciones personalizadas.</p>
+                <p><strong>Prompt Engineering:</strong> System prompts con contexto de alérgenos y menú.</p>
+                <div style="margin-top: 15px;">
+                    <span class="tech-badge openai">OpenAI API</span>
+                    <span class="tech-badge openai">GPT-4</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>☁️ Hosting & Deploy</h3>
+                <p><strong>Vercel:</strong> Hosting gratuito con deploy automático desde GitHub. CDN global, SSL incluido, zero-config.</p>
+                <p><strong>GitHub:</strong> Control de versiones y CI/CD automático.</p>
+                <div style="margin-top: 15px;">
+                    <span class="tech-badge vercel">Vercel</span>
+                    <span class="tech-badge">GitHub</span>
+                    <span class="tech-badge">Git</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💾 Gestión de Datos</h3>
+                <p><strong>JSON Estático:</strong> Matrices de alérgenos y menú almacenados como archivos JSON en el proyecto.</p>
+                <p><strong>Futuro:</strong> Migración a Firebase o Supabase para datos dinámicos.</p>
+                <div style="margin-top: 15px;">
+                    <span class="tech-badge">JSON</span>
+                    <span class="tech-badge">Local Storage</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-section">
+            <h3>🔄 Flujo Técnico Detallado</h3>
+            <div class="flow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p><strong>Usuario accede</strong></p>
+                    <small>Via URL o QR code</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p><strong>Carga Frontend</strong></p>
+                    <small>Vercel sirve HTML/JS</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p><strong>Input de alergias</strong></p>
+                    <small>JS captura formulario</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p><strong>Construye prompt</strong></p>
+                    <small>+ Contexto JSON</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <p><strong>Llamada OpenAI</strong></p>
+                    <small>fetch() con API key</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <p><strong>Procesa respuesta</strong></p>
+                    <small>GPT recomienda platos</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <p><strong>Renderiza UI</strong></p>
+                    <small>Muestra resultados</small>
+                </div>
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <p><strong>Usuario decide</strong></p>
+                    <small>Puede seguir preguntando</small>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: #2d3748; margin-top: 50px;">💡 Decisiones Arquitectónicas</h2>
+        
+        <div class="architecture-cards">
+            <div class="card">
+                <h3>✓ OpenAI API vs. Modelo Propio</h3>
+                <p><strong>Por qué OpenAI:</strong> Prototipado rápido, sin necesidad de entrenar modelos, excelente comprensión de contexto, multilingüe out-of-the-box.</p>
+                <p><strong>Trade-off:</strong> Costo por token, dependencia externa, latencia de red.</p>
+            </div>
+
+            <div class="card">
+                <h3>✓ Vanilla JS vs. React/Vue</h3>
+                <p><strong>Por qué Vanilla:</strong> Proyecto pequeño, carga ultra-rápida, sin complejidad de build tools, fácil de mantener para no-devs.</p>
+                <p><strong>Trade-off:</strong> Menos escalable para features complejos.</p>
+            </div>
+
+            <div class="card">
+                <h3>✓ Vercel vs. Otros Hostings</h3>
+                <p><strong>Por qué Vercel:</strong> Deploy en 2 clicks, HTTPS gratis, CDN global, perfecto para static sites y edge functions.</p>
+                <p><strong>Trade-off:</strong> Límites en plan gratuito (100GB bandwidth/mes).</p>
+            </div>
+
+            <div class="card">
+                <h3>✓ JSON Local vs. Base de Datos</h3>
+                <p><strong>Por qué JSON local:</strong> Simplicidad para MVP, sin costos adicionales, control total de los datos, suficiente para 1 restaurante.</p>
+                <p><strong>Trade-off:</strong> No escalable a múltiples restaurantes sin refactor.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>🔐 Implementación de IA Responsable</h3>
+            <p><strong>System Prompt con Contexto:</strong></p>
+            <code style="background: #2d3748; color: #fff; padding: 15px; display: block; border-radius: 8px; margin: 10px 0; overflow-x: auto;">
+{
+  "role": "system",
+  "content": "Eres ChefBot, un asistente para personas con alergias. 
+  NUNCA recomiendes platos si no estás 100% seguro. 
+  En caso de duda, indica: 'Por favor confirma con el personal'.
+  Contexto: [MATRIZ_ALERGENOS_JSON]"
+}
+            </code>
+            <p><strong>Validaciones:</strong></p>
+            <ul style="color: #4a5568;">
+                <li>✓ Cross-check de alérgenos en cada recomendación</li>
+                <li>✓ Respuesta de fallback obligatoria ante ambigüedad</li>
+                <li>✓ Disclaimer visible en UI: "Confirma siempre con staff"</li>
+                <li>✓ Log de conversaciones para auditoría (opcional)</li>
+            </ul>
+        </div>
+
+        <h2 style="color: #2d3748; margin-top: 50px;">⚖️ Análisis de la Arquitectura</h2>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <h3 style="color: #2f855a; margin-top: 0;">✅ Ventajas</h3>
+                <ul style="color: #276749; line-height: 2;">
+                    <li><strong>Rapidez de desarrollo:</strong> MVP en días</li>
+                    <li><strong>Costo inicial bajo:</strong> ~$10-20/mes</li>
+                    <li><strong>Fácil mantenimiento:</strong> Código simple</li>
+                    <li><strong>Deploy instantáneo:</strong> Push to deploy</li>
+                    <li><strong>Escalabilidad suficiente:</strong> 1-10 restaurantes OK</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <h3 style="color: #c05621; margin-top: 0;">⚠️ Limitaciones</h3>
+                <ul style="color: #7c2d12; line-height: 2;">
+                    <li><strong>API Key expuesta:</strong> Necesita serverless function</li>
+                    <li><strong>Costos variables:</strong> Depende de uso de OpenAI</li>
+                    <li><strong>Sin base de datos:</strong> JSON no escala bien</li>
+                    <li><strong>Latencia:</strong> Cada respuesta requiere llamada API</li>
+                    <li><strong>Dependencia externa:</strong> Si OpenAI cae, app cae</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flow-section" style="margin-top: 30px;">
+            <h3>🚀 Roadmap Técnico</h3>
+            <ol style="color: #4a5568; line-height: 2;">
+                <li><strong>Fase actual (MVP):</strong> HTML + JS + OpenAI + Vercel ✅</li>
+                <li><strong>Siguiente paso:</strong> Migrar API key a Vercel Serverless Function (seguridad)</li>
+                <li><strong>Corto plazo:</strong> Añadir Firebase/Supabase para menús dinámicos</li>
+                <li><strong>Medio plazo:</strong> Implementar caché de respuestas comunes (reducir costos)</li>
+                <li><strong>Largo plazo:</strong> Multi-tenant para múltiples restaurantes</li>
+            </ol>
+        </div>
+
+        <div style="background: #edf2f7; padding: 20px; border-radius: 10px; margin-top: 30px;">
+            <h3 style="color: #2d3748; margin-top: 0;">📊 Estimación de Costos (MVP)</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: #cbd5e0;">
+                    <th style="padding: 10px; text-align: left;">Servicio</th>
+                    <th style="padding: 10px; text-align: left;">Costo/mes</th>
+                    <th style="padding: 10px; text-align: left;">Notas</th>
+                </tr>
+                <tr style="background: white;">
+                    <td style="padding: 10px;">Vercel Hosting</td>
+                    <td style="padding: 10px;">$0</td>
+                    <td style="padding: 10px;">Plan gratuito suficiente</td>
+                </tr>
+                <tr style="background: #f7fafc;">
+                    <td style="padding: 10px;">OpenAI API</td>
+                    <td style="padding: 10px;">$10-30</td>
+                    <td style="padding: 10px;">~1000-3000 conversaciones</td>
+                </tr>
+                <tr style="background: #e0e7ff;">
+                    <td style="padding: 10px;"><strong>TOTAL</strong></td>
+                    <td style="padding: 10px;"><strong>$10-30</strong></td>
+                    <td style="padding: 10px;"><strong>Muy viable para piloto</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p><strong>Estado:</strong> ✅ MVP Funcional en Vercel | 🧪 Piloto próximo en Zaragoza</p>
+            <p>Desarrollado por <strong>Sara Triana Merchan</strong></p>
+            <p style="margin-top: 10px; font-size: 0.85em;">
+                🔗 <a href="https://www.linkedin.com/in/sara-triana-merchan" style="color: #667eea;">LinkedIn</a> | 
+                📧 saratrianamerchan@gmail.com
+            </p>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryTextColor: '#1e293b',
+                primaryBorderColor: '#667eea',
+                lineColor: '#475569',
+                secondaryColor: '#d1fae5',
+                tertiaryColor: '#dbeafe',
+                fontSize: '16px'
+            }
+        });
+    </script>
+</body>
+</html>
